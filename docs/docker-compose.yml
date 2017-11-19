@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+
+    docs:
+      build:
+        context: .
+        dockerfile: Dockerfile.dev
+      ports:
+        - "9999:8000"
+      volumes:
+        - ./:/docs

@@ -1,0 +1,18 @@
+site_name: Pitchup Docs
+theme: readthedocs
+docs_dir: /docs/src
+site_url: 'http://pitchup.github.com'
+dev_addr: '0.0.0.0:8000'
+use_directory_urls: false
+pages:
+    - Main: index.md
+    - Development: dev.md
+    - Staging: stag.md
+    - Production: prod.md
+    - Infrastructure: infra.md
+    - Documentation: docs.md
+markdown_extensions:
+    - pymdownx.tasklist:
+         custom_checkbox: True
+    - markdown_blockdiag:
+         format: png
