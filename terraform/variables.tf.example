@@ -1,0 +1,26 @@
+variable "token" {
+    default = ""
+    description = "Cloud provider token"
+}
+
+variable "key_name" {
+    default = "your_name"
+    description = "A name of ssh key defined in AWS"
+}
+
+variable "cluster_manager_count" {
+    description = "Number of manager instances for the cluster."
+    default = 1
+}
+
+variable "cluster_node_count" {
+    description = "Number of node instances for the cluster."
+    default = 0
+}
+
+variable "cluster_gocd_agent_count" {
+    description = "Number of gocd agents for the cluster."
+    default = 1
+}
+
+
