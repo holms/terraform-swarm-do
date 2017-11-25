@@ -8,4 +8,6 @@ services:
       ports:
         - "9999:8000"
       volumes:
-        - ./:/docs
+        - ../:/docs
+        - ~/.ssh/idrsa:/root/.ssh/idrsa
+        - ~/.git:/root/.git
