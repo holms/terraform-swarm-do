@@ -10,5 +10,6 @@ clean:
 kill:
 	-docker kill $(shell docker ps -q)
 
-
+github:
+	docker-compose run docs cd /docs && mkdocs gh-deploy -f docs/mkdocs.yml
 
