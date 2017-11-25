@@ -1,0 +1,184 @@
+{
+    "docs": [
+        {
+            "location": "/index.html", 
+            "text": "Pitchup.com overview\n\n\nStack for app\n\n\n\n\nDocker\n\n\nDocker-compose\n\n\nTerraform\n\n\nMkdocs\n\n\n\n\nStack for host\n\n\n\n\nDigital ocean\n\n\nGitlab\n\n\nDocker-swarm\n\n\n\n\nMonitoring\n\n\nCommunication\n\n\nArchitecture\n\n\n\n\n\n\nEdit link: http://yuml.me/edit/3071cd84\n\n\nDevelopers contacts\n\n\n\n\n\n\n\n\nName\n\n\nRole\n\n\nEmail\n\n\n\n\n\n\n\n\n\n\nMitch Lukas\n\n\nCTO", 
+            "title": "Main"
+        }, 
+        {
+            "location": "/index.html#pitchupcom-overview", 
+            "text": "", 
+            "title": "Pitchup.com overview"
+        }, 
+        {
+            "location": "/index.html#stack-for-app", 
+            "text": "Docker  Docker-compose  Terraform  Mkdocs", 
+            "title": "Stack for app"
+        }, 
+        {
+            "location": "/index.html#stack-for-host", 
+            "text": "Digital ocean  Gitlab  Docker-swarm", 
+            "title": "Stack for host"
+        }, 
+        {
+            "location": "/index.html#monitoring", 
+            "text": "", 
+            "title": "Monitoring"
+        }, 
+        {
+            "location": "/index.html#communication", 
+            "text": "", 
+            "title": "Communication"
+        }, 
+        {
+            "location": "/index.html#architecture", 
+            "text": "Edit link: http://yuml.me/edit/3071cd84", 
+            "title": "Architecture"
+        }, 
+        {
+            "location": "/index.html#developers-contacts", 
+            "text": "Name  Role  Email      Mitch Lukas  CTO", 
+            "title": "Developers contacts"
+        }, 
+        {
+            "location": "/dev/index.html", 
+            "text": "How to use DEV environment\n\n\n\n\nFirst clone the repo:\n\n\n\n\ngit clone git@github.com:pitchup/Pitchup.com.git pitchup.com\ncd pitchup.com\ncp envs/sample.env .env\n\n\n\n\n\n\nAdd this lines to /etc/hosts\n\n\n\n\n127.0.0.1 local.pitchup.com m.local.pitchup.com\n\n\n\n\nBuild it\n\n\nBefore running containers you need to build them first. Although trying to run the containers will build them:\n\n\ndocker-compose build --pull\n\n\n\n\nInit it\n\n\nYou'll have to download database dump. One was is to use S3cmd. Another is any other S3 browser:\n\n\n\n\nInstall S3cmd from brew/macports/apt\n\n\nConfigure it\n\n\n\n\ngrep 'AWS' ./ansible/playbooks/pitchup/inventory/group_vars/all.yaml\ns3cmd --configure # Copy AWS credentials manually\n\n\n\n\n\n\nDownload latest DB dump:\n\n\n\n\nLATEST=`s3cmd ls s3://pitchupdb | tail -1  | awk '{print $2}'`\nLATEST=`s3cmd ls $LATEST | tail -1 | awk '{print $2}'`\ns3cmd get `s3cmd ls $LATEST | tail -1 | awk '{print $4}'`\n\n\n\n\n\n\nTo import database dump you need to have the postgres container running.\n\n\n\n\ndocker-compose up -d postgres\n\n\n\n\ngunzip \n pitchup_prod.sql.gz | docker-compose run --rm postgres psql -h postgres -p 5432 -U postgres -d pitchup --\n\n\n\n\nRun it\n\n\nBring everything up (add -d flat if you want to run it in background)\n\n\ndocker-compose up\n\n\n\n\nor: \n\n\nmake dev\n\n\n\n\nYou can now access \nhttps://local.pitchup.com\n.\n\n\nCleanup\n\n\nClean it\n\n\nYou can clear up some of the images left around after docker builds. Warning you might delete stuff you are using.\n\n\nmake clean\n\n\n\n\nKill it\n\n\nKill all running containers\n\n\nmake kill\n\n\n\n\nDestroy it\n\n\nRemove all built containers, images and also volumes.\n\n\nmake destroy\n\n\n\n\nWARNING: USE ONLY FOR FULL CLEANUP! If you do this, be prepared to have another lengthy wait as you will have to import.", 
+            "title": "Development"
+        }, 
+        {
+            "location": "/dev/index.html#how-to-use-dev-environment", 
+            "text": "First clone the repo:   git clone git@github.com:pitchup/Pitchup.com.git pitchup.com\ncd pitchup.com\ncp envs/sample.env .env   Add this lines to /etc/hosts   127.0.0.1 local.pitchup.com m.local.pitchup.com", 
+            "title": "How to use DEV environment"
+        }, 
+        {
+            "location": "/dev/index.html#build-it", 
+            "text": "Before running containers you need to build them first. Although trying to run the containers will build them:  docker-compose build --pull", 
+            "title": "Build it"
+        }, 
+        {
+            "location": "/dev/index.html#init-it", 
+            "text": "You'll have to download database dump. One was is to use S3cmd. Another is any other S3 browser:   Install S3cmd from brew/macports/apt  Configure it   grep 'AWS' ./ansible/playbooks/pitchup/inventory/group_vars/all.yaml\ns3cmd --configure # Copy AWS credentials manually   Download latest DB dump:   LATEST=`s3cmd ls s3://pitchupdb | tail -1  | awk '{print $2}'`\nLATEST=`s3cmd ls $LATEST | tail -1 | awk '{print $2}'`\ns3cmd get `s3cmd ls $LATEST | tail -1 | awk '{print $4}'`   To import database dump you need to have the postgres container running.   docker-compose up -d postgres  gunzip   pitchup_prod.sql.gz | docker-compose run --rm postgres psql -h postgres -p 5432 -U postgres -d pitchup --", 
+            "title": "Init it"
+        }, 
+        {
+            "location": "/dev/index.html#run-it", 
+            "text": "Bring everything up (add -d flat if you want to run it in background)  docker-compose up  or:   make dev  You can now access  https://local.pitchup.com .", 
+            "title": "Run it"
+        }, 
+        {
+            "location": "/dev/index.html#cleanup", 
+            "text": "", 
+            "title": "Cleanup"
+        }, 
+        {
+            "location": "/dev/index.html#clean-it", 
+            "text": "You can clear up some of the images left around after docker builds. Warning you might delete stuff you are using.  make clean", 
+            "title": "Clean it"
+        }, 
+        {
+            "location": "/dev/index.html#kill-it", 
+            "text": "Kill all running containers  make kill", 
+            "title": "Kill it"
+        }, 
+        {
+            "location": "/dev/index.html#destroy-it", 
+            "text": "Remove all built containers, images and also volumes.  make destroy  WARNING: USE ONLY FOR FULL CLEANUP! If you do this, be prepared to have another lengthy wait as you will have to import.", 
+            "title": "Destroy it"
+        }, 
+        {
+            "location": "/stag/index.html", 
+            "text": "Production deployment", 
+            "title": "Staging"
+        }, 
+        {
+            "location": "/stag/index.html#production-deployment", 
+            "text": "", 
+            "title": "Production deployment"
+        }, 
+        {
+            "location": "/prod/index.html", 
+            "text": "Production deployment", 
+            "title": "Production"
+        }, 
+        {
+            "location": "/prod/index.html#production-deployment", 
+            "text": "", 
+            "title": "Production deployment"
+        }, 
+        {
+            "location": "/infra/index.html", 
+            "text": "Infrastucture environment\n\n\nIt's a docker swarm based environment separated from Pitchup to host infrastructure tools.\n\n\nTools used:\n\n\n\n\nTerraform\n\n\nAWS EC2\n\n\nAWS VPC\n\n\nDocker-compose\n\n\n\n\nSSH keys\n\n\nCopy ssh key:\n\n\ncp docker-infra/terraform/pitchup.pem ~/.ssh/pitchup.pem\nchmod 600 ~/.ssh/pitchup.pem\n\n\n\n\nNow you need to start using ssh-agent, be sure it's loaded and running. \n\n\nLoad ssh key to ssh-agent:\n\n\nssh-add .ssh/do.pem\n\n\n\n\nCluster deployment\n\n\nTo deploy a cluster or any changes in it's setup - you need to install and run \nTerraform\n.\n\n\ncd docker-infra/terraform\nterraform apply\n\n\n\n\nIt's a good practise to run \nterraform plan\n before applying changes, to see what's will be changed in infrastructure.\n\n\nWARNING\n: Be VERY carefull using Terraform, if you remove something from script or resource will be changed too drastically, terraform might remove that resource and install new one, this can lead to data loss! Always use \nterraform plan\n before applying changes!\n\n\nAdding more nodes\n\n\nIn \nvariables.tf\n file you can change these parameters to increase certain node count:\n\n\n\n\ncluster_manager_count\n\n\ncluster_node_count\n\n\ncluster_gocd_agent_count\n\n\n\n\nAfter that run \nterraform plan\n to preview what changes will be made, and then only then \nterraform apply\n\n\nDocker container deployment\n\n\nLocal docker setup\n\n\ncp docker-infra/terraform/certs/ca.pem ~/.docker\ncp docker-infra/terraform/certs/key.pem ~/.docker\ncp docker-infra/terraform/certs/cert.pem ~/.docker\n\n\n\n\nDocker-compose usage\n\n\nYou need to specify which docker host you want to manage and authorize there to make changes:\n\n\ncd docker-infra/compose\nexport DOCKER_HOST=tcp://\nswarm_master_node_hostname_here\n:2376\ndocker --tls stack deploy --compose-file=compose.yml infra\n\n\n\n\nTo get master node ip address do this:\n\n\ncd docker-infra/terraform\nterraform output\n\n\n\n\nOr there's a Makefile \ndocker-infra/\n directory:\n\n\nJust do:\n\n\nmake deploy\n\n\n\n\nForce update image\n\n\nYou might need to set DOCKER_HOST for that node where image is stored\n\n\ndocker --tls pull pitchup/gocd-server:latest\n\n\n\n\nForce update service\n\n\ndocker --tls service update --force --detach=false infra_gocd-server\n\n\n\n\nDestroying cluster\n\n\nThis will destroy all resources that terraform creted on AWS:\n\n\nterraform destroy\n\n\n\n\nWARNING\n: You will never use that unless setting up new cluster for testing.", 
+            "title": "Infrastructure"
+        }, 
+        {
+            "location": "/infra/index.html#infrastucture-environment", 
+            "text": "It's a docker swarm based environment separated from Pitchup to host infrastructure tools.  Tools used:   Terraform  AWS EC2  AWS VPC  Docker-compose", 
+            "title": "Infrastucture environment"
+        }, 
+        {
+            "location": "/infra/index.html#ssh-keys", 
+            "text": "Copy ssh key:  cp docker-infra/terraform/pitchup.pem ~/.ssh/pitchup.pem\nchmod 600 ~/.ssh/pitchup.pem  Now you need to start using ssh-agent, be sure it's loaded and running.   Load ssh key to ssh-agent:  ssh-add .ssh/do.pem", 
+            "title": "SSH keys"
+        }, 
+        {
+            "location": "/infra/index.html#cluster-deployment", 
+            "text": "To deploy a cluster or any changes in it's setup - you need to install and run  Terraform .  cd docker-infra/terraform\nterraform apply  It's a good practise to run  terraform plan  before applying changes, to see what's will be changed in infrastructure.  WARNING : Be VERY carefull using Terraform, if you remove something from script or resource will be changed too drastically, terraform might remove that resource and install new one, this can lead to data loss! Always use  terraform plan  before applying changes!", 
+            "title": "Cluster deployment"
+        }, 
+        {
+            "location": "/infra/index.html#adding-more-nodes", 
+            "text": "In  variables.tf  file you can change these parameters to increase certain node count:   cluster_manager_count  cluster_node_count  cluster_gocd_agent_count   After that run  terraform plan  to preview what changes will be made, and then only then  terraform apply", 
+            "title": "Adding more nodes"
+        }, 
+        {
+            "location": "/infra/index.html#docker-container-deployment", 
+            "text": "", 
+            "title": "Docker container deployment"
+        }, 
+        {
+            "location": "/infra/index.html#local-docker-setup", 
+            "text": "cp docker-infra/terraform/certs/ca.pem ~/.docker\ncp docker-infra/terraform/certs/key.pem ~/.docker\ncp docker-infra/terraform/certs/cert.pem ~/.docker", 
+            "title": "Local docker setup"
+        }, 
+        {
+            "location": "/infra/index.html#docker-compose-usage", 
+            "text": "You need to specify which docker host you want to manage and authorize there to make changes:  cd docker-infra/compose\nexport DOCKER_HOST=tcp:// swarm_master_node_hostname_here :2376\ndocker --tls stack deploy --compose-file=compose.yml infra  To get master node ip address do this:  cd docker-infra/terraform\nterraform output  Or there's a Makefile  docker-infra/  directory:  Just do:  make deploy", 
+            "title": "Docker-compose usage"
+        }, 
+        {
+            "location": "/infra/index.html#force-update-image", 
+            "text": "You might need to set DOCKER_HOST for that node where image is stored  docker --tls pull pitchup/gocd-server:latest  Force update service  docker --tls service update --force --detach=false infra_gocd-server", 
+            "title": "Force update image"
+        }, 
+        {
+            "location": "/infra/index.html#destroying-cluster", 
+            "text": "This will destroy all resources that terraform creted on AWS:  terraform destroy  WARNING : You will never use that unless setting up new cluster for testing.", 
+            "title": "Destroying cluster"
+        }, 
+        {
+            "location": "/docs/index.html", 
+            "text": "Mkdocs documentation\n\n\nMkdocs is what you see in here, it's markdown based documentation engine to have some reacher documentation than some git README.md file.\n\n\nAdding pages\n\n\nAdding pages is very straightforward just open \nmkdocs.yml\n and you'll figure it out.\n\n\nPreviewing your docs\n\n\nRun \nmake man\n and open in your browser this address: \nhttp://localhost:9999\n\n\nAny changes you'll do will be detected automatically\n\n\nDocs in production\n\n\nMkdocs deployment is fully automated, once you're push your changes, the container of mkdocs will be rebuilt, and you can access docs here:", 
+            "title": "Documentation"
+        }, 
+        {
+            "location": "/docs/index.html#mkdocs-documentation", 
+            "text": "Mkdocs is what you see in here, it's markdown based documentation engine to have some reacher documentation than some git README.md file.", 
+            "title": "Mkdocs documentation"
+        }, 
+        {
+            "location": "/docs/index.html#adding-pages", 
+            "text": "Adding pages is very straightforward just open  mkdocs.yml  and you'll figure it out.", 
+            "title": "Adding pages"
+        }, 
+        {
+            "location": "/docs/index.html#previewing-your-docs", 
+            "text": "Run  make man  and open in your browser this address:  http://localhost:9999  Any changes you'll do will be detected automatically", 
+            "title": "Previewing your docs"
+        }, 
+        {
+            "location": "/docs/index.html#docs-in-production", 
+            "text": "Mkdocs deployment is fully automated, once you're push your changes, the container of mkdocs will be rebuilt, and you can access docs here:", 
+            "title": "Docs in production"
+        }
+    ]
+}

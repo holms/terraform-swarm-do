@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Development - Pitchup Docs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Development";
+    var mkdocs_page_input_path = "dev.md";
+    var mkdocs_page_url = "/dev/index.html";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> Pitchup Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../index.html">Main</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="index.html">Development</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#how-to-use-dev-environment">How to use DEV environment</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#build-it">Build it</a></li>
+        
+            <li><a class="toctree-l3" href="#init-it">Init it</a></li>
+        
+            <li><a class="toctree-l3" href="#run-it">Run it</a></li>
+        
+            <li><a class="toctree-l3" href="#cleanup">Cleanup</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../stag/index.html">Staging</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../prod/index.html">Production</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../infra/index.html">Infrastructure</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../docs/index.html">Documentation</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Pitchup Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Development</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="how-to-use-dev-environment">How to use DEV environment</h1>
+<ul>
+<li>First clone the repo:</li>
+</ul>
+<pre><code>git clone git@github.com:pitchup/Pitchup.com.git pitchup.com
+cd pitchup.com
+cp envs/sample.env .env
+</code></pre>
+
+<ul>
+<li>Add this lines to /etc/hosts</li>
+</ul>
+<pre><code>127.0.0.1 local.pitchup.com m.local.pitchup.com
+</code></pre>
+
+<h2 id="build-it">Build it</h2>
+<p>Before running containers you need to build them first. Although trying to run the containers will build them:</p>
+<pre><code class="bash">docker-compose build --pull
+</code></pre>
+
+<h2 id="init-it">Init it</h2>
+<p>You'll have to download database dump. One was is to use S3cmd. Another is any other S3 browser:</p>
+<ul>
+<li>Install S3cmd from brew/macports/apt</li>
+<li>Configure it</li>
+</ul>
+<pre><code class="bash">grep 'AWS' ./ansible/playbooks/pitchup/inventory/group_vars/all.yaml
+s3cmd --configure # Copy AWS credentials manually
+</code></pre>
+
+<ul>
+<li>Download latest DB dump:</li>
+</ul>
+<pre><code class="bash">LATEST=`s3cmd ls s3://pitchupdb | tail -1  | awk '{print $2}'`
+LATEST=`s3cmd ls $LATEST | tail -1 | awk '{print $2}'`
+s3cmd get `s3cmd ls $LATEST | tail -1 | awk '{print $4}'`
+</code></pre>
+
+<ul>
+<li>To import database dump you need to have the postgres container running.</li>
+</ul>
+<pre><code class="bash">docker-compose up -d postgres
+</code></pre>
+
+<pre><code class="bash">gunzip &lt; pitchup_prod.sql.gz | docker-compose run --rm postgres psql -h postgres -p 5432 -U postgres -d pitchup --
+</code></pre>
+
+<h2 id="run-it">Run it</h2>
+<p>Bring everything up (add -d flat if you want to run it in background)</p>
+<pre><code class="bash">docker-compose up
+</code></pre>
+
+<p>or: </p>
+<pre><code class="bash">make dev
+</code></pre>
+
+<p>You can now access <code>https://local.pitchup.com</code>.</p>
+<h2 id="cleanup">Cleanup</h2>
+<h3 id="clean-it">Clean it</h3>
+<p>You can clear up some of the images left around after docker builds. Warning you might delete stuff you are using.</p>
+<pre><code>make clean
+</code></pre>
+
+<h3 id="kill-it">Kill it</h3>
+<p>Kill all running containers</p>
+<pre><code class="bash">make kill
+</code></pre>
+
+<h3 id="destroy-it">Destroy it</h3>
+<p>Remove all built containers, images and also volumes.</p>
+<pre><code class="bash">make destroy
+</code></pre>
+
+<p>WARNING: USE ONLY FOR FULL CLEANUP! If you do this, be prepared to have another lengthy wait as you will have to import.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../stag/index.html" class="btn btn-neutral float-right" title="Staging">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Main"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../index.html" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../stag/index.html" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>
