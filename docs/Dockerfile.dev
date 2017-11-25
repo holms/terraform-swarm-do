@@ -1,8 +1,9 @@
 FROM python:2-alpine
 RUN pip install --upgrade pip
-RUN apk add --update alpine-sdk jpeg-dev zlib-dev openssl-dev readline-dev
+RUN apk add --update alpine-sdk jpeg-dev zlib-dev openssl-dev readline-dev openssh
 RUN pip install mkdocs nwdiag markdown-blockdiag pymdown-extensions
-RUN mkdir -p /docs/src
-WORKDIR /docs
+RUN mkdir -p /docs/docs/src
+RUN mkdir -p /root/.ssh
+WORKDIR /docs/docs
 CMD mkdocs serve
 
