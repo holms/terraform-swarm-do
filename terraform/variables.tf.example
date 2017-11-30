@@ -15,12 +15,8 @@ variable "cluster_manager_count" {
 
 variable "cluster_node_count" {
     description = "Number of node instances for the cluster."
-    default = 0
+    default = 1 
 }
 
-variable "cluster_gocd_agent_count" {
-    description = "Number of gocd agents for the cluster."
-    default = 1
-}
 
 
