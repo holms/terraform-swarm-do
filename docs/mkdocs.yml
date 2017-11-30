@@ -1,7 +1,7 @@
-site_name: Pitchup Docs
+site_name: Terraform+Swarm+DO
 theme: readthedocs
 docs_dir: /docs/docs/src
-site_url: 'http://pitchup.github.com'
+site_url: 'https://holms.github.io/terraform-swarm-do/'
 dev_addr: '0.0.0.0:8000'
 use_directory_urls: false
 pages:

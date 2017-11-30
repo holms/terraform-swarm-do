@@ -1,4 +1,4 @@
-# Pitchup.com overview
+# Overview
 
 ## Stack for app
 
@@ -13,21 +13,8 @@
 * Gitlab
 * Docker-swarm
 
-## Monitoring
-
-## Communication
-
-
-## Architecture 
-
-<SAMPLE IMAGE>
-
-![alt text](https://yuml.me/3071cd84)
-
-Edit link: http://yuml.me/edit/3071cd84
-
 ## Developers contacts
 
-| Name             | Role   | Email               |
-|------------------|--------|---------------------|
-| Mitch Lukas      | CTO    |                     |
+| Name             | Email          |
+|------------------|----------------|
+| Roman Gorodeckij | holms@holms.lt |
