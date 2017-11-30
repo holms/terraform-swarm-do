@@ -1,4 +1,4 @@
 variables.tf
-certs/*.pem
+terraform/certs/*.pem
 *.tfstate*
 *.swp
