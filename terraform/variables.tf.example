@@ -13,6 +13,22 @@ variable "region" {
     description = "Digital ocean region"
 }
 
+variable "memory_master" {
+    default = "512mb"
+    description = "Ram amount for master node"
+}
+
+variable "memory_manager" {
+    default = "512mb"
+    description = "Ram amount for manager node"
+}
+
+variable "memory_slave" {
+    default = "512mb"
+    description = "Ram amount for slave node"
+}
+
+
 variable "cluster_manager_count" {
     description = "Number of manager instances for the cluster."
     default = 1

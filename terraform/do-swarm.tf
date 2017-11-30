@@ -3,8 +3,8 @@ resource "digitalocean_droplet" "swarm-master" {
   name                          = "swarm-master"
   image                         = "ubuntu-16-10-x64"
   region                        = "${var.region}"
-  size                          = "1gb"
-  ssh_keys                      = "${var.ssh_keys}" 
+  size                          = "${var.memory_master}"
+  ssh_keys                      = "${var.ssh_keys}"
   private_networking            = 1
   count                         = 1
 
@@ -47,9 +47,9 @@ resource "digitalocean_droplet" "swarm-master" {
 resource "digitalocean_droplet" "swarm-manager" {
   name                          = "swarm-manager"
   image                         = "ubuntu-16-10-x64"
-  region                        = "sfo1"
-  size                          = "1gb"
-  ssh_keys                      = "${var.ssh_keys}" 
+  region                        = "${var.region}"
+  size                          = "${var.memory_manager}"
+  ssh_keys                      = "${var.ssh_keys}"
   private_networking            = 1
   count                         = "${var.cluster_manager_count}"
 
@@ -97,9 +97,9 @@ resource "digitalocean_droplet" "swarm-manager" {
 resource "digitalocean_droplet" "swarm-slave" {
   name                          = "swarm-slave"
   image                         = "ubuntu-16-10-x64"
-  region                        = "sfo1"
-  size                          = "1gb"
-  ssh_keys                      = "${var.ssh_keys}" 
+  region                        = "${var.region}"
+  size                          = "${var.memory_slave}"
+  ssh_keys                      = "${var.ssh_keys}"
   private_networking            = 1
   count                         = "${var.cluster_slave_count}"
 
