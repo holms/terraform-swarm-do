@@ -2,7 +2,7 @@ resource "digitalocean_droplet" "swarm-master" {
 
   name                          = "swarm-master"
   image                         = "ubuntu-16-10-x64"
-  region                        = "sfo1"
+  region                        = "${var.region}"
   size                          = "1gb"
   ssh_keys                      = "${var.ssh_keys}" 
   private_networking            = 1

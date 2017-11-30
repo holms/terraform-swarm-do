@@ -8,6 +8,11 @@ variable "ssh_keys" {
     description = "Key signature from digital ocean"
 }
 
+variable "region" {
+    default = "ams3"
+    description = "Digital ocean region"
+}
+
 variable "cluster_manager_count" {
     description = "Number of manager instances for the cluster."
     default = 1
