@@ -1,3 +1,4 @@
 variables.tf
 certs/*.pem
 *.tfstate*
+*.swp
