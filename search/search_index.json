@@ -2,13 +2,13 @@
     "docs": [
         {
             "location": "/index.html", 
-            "text": "Pitchup.com overview\n\n\nStack for app\n\n\n\n\nDocker\n\n\nDocker-compose\n\n\nTerraform\n\n\nMkdocs\n\n\n\n\nStack for host\n\n\n\n\nDigital ocean\n\n\nGitlab\n\n\nDocker-swarm\n\n\n\n\nMonitoring\n\n\nCommunication\n\n\nArchitecture\n\n\n\n\n\n\nEdit link: http://yuml.me/edit/3071cd84\n\n\nDevelopers contacts\n\n\n\n\n\n\n\n\nName\n\n\nRole\n\n\nEmail\n\n\n\n\n\n\n\n\n\n\nMitch Lukas\n\n\nCTO", 
+            "text": "Overview\n\n\nStack for app\n\n\n\n\nDocker\n\n\nDocker-compose\n\n\nTerraform\n\n\nMkdocs\n\n\n\n\nStack for host\n\n\n\n\nDigital ocean\n\n\nGitlab\n\n\nDocker-swarm\n\n\n\n\nDevelopers contacts\n\n\n\n\n\n\n\n\nName\n\n\nEmail\n\n\n\n\n\n\n\n\n\n\nRoman Gorodeckij\n\n\nholms@holms.lt", 
             "title": "Main"
         }, 
         {
-            "location": "/index.html#pitchupcom-overview", 
+            "location": "/index.html#overview", 
             "text": "", 
-            "title": "Pitchup.com overview"
+            "title": "Overview"
         }, 
         {
             "location": "/index.html#stack-for-app", 
@@ -21,23 +21,8 @@
             "title": "Stack for host"
         }, 
         {
-            "location": "/index.html#monitoring", 
-            "text": "", 
-            "title": "Monitoring"
-        }, 
-        {
-            "location": "/index.html#communication", 
-            "text": "", 
-            "title": "Communication"
-        }, 
-        {
-            "location": "/index.html#architecture", 
-            "text": "Edit link: http://yuml.me/edit/3071cd84", 
-            "title": "Architecture"
-        }, 
-        {
             "location": "/index.html#developers-contacts", 
-            "text": "Name  Role  Email      Mitch Lukas  CTO", 
+            "text": "Name  Email      Roman Gorodeckij  holms@holms.lt", 
             "title": "Developers contacts"
         }, 
         {
