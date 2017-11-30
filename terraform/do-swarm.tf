@@ -1,7 +1,7 @@
 resource "digitalocean_droplet" "swarm-master" {
 
   name                          = "swarm-master"
-  image                         = "ubuntu-16-10-x64"
+  image                         = "${var.image}"
   region                        = "${var.region}"
   size                          = "${var.memory_master}"
   ssh_keys                      = "${var.ssh_keys}"
@@ -46,7 +46,7 @@ resource "digitalocean_droplet" "swarm-master" {
 
 resource "digitalocean_droplet" "swarm-manager" {
   name                          = "swarm-manager"
-  image                         = "ubuntu-16-10-x64"
+  image                         = "${var.image}"
   region                        = "${var.region}"
   size                          = "${var.memory_manager}"
   ssh_keys                      = "${var.ssh_keys}"
@@ -96,7 +96,7 @@ resource "digitalocean_droplet" "swarm-manager" {
 
 resource "digitalocean_droplet" "swarm-slave" {
   name                          = "swarm-slave"
-  image                         = "ubuntu-16-10-x64"
+  image                         = "${var.image}"
   region                        = "${var.region}"
   size                          = "${var.memory_slave}"
   ssh_keys                      = "${var.ssh_keys}"
